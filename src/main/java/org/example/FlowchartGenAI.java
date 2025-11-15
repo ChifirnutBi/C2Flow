@@ -6,19 +6,46 @@ import com.google.genai.types.GenerateContentResponse;
 
 public class FlowchartGenAI {
 
-    final static String MODEL = "gemini-2.5-flash";
-    final static GenerateContentConfig CONFIG = null;
+    private static final Client CLIENT = new Client();
+    private static final String MODEL = "gemini-2.5-flash";
+    private static final GenerateContentConfig CONFIG = null;
 
     private static FlowchartGenAI instance;
 
-    private final Client client;
-    private final String model;
-    private final GenerateContentConfig config;
+    public static final String generateTaskAndSolution = "У тебе є код на C. \n" +
+            "Тобі потрібно зробити текст задачі та розв'язку на основі коду мовою C. \n" +
+            "Треба:\n" +
+            "1. Написати текст задачі (що виконується в цьому коді) українською мовою так, щоб він описував, що потрібно зробити Задача: (сюди писати текст задачі)\n" +
+            "2. Дати розв'язок українською мовою у вигляді пояснення кроків, що виконує програма. Розв'язок: (сюди писати текст розв'язку)\n" +
+            "3. Не створюй розділів окрім \"Задача:\" та \"Розв'язок:\"\n" +
+            "4. Не використовуй те що може не відобразитися у .doc файлі (---, `, \\times)\n" +
+            "5. Текст має бути зрозумілий студенту першого курсу.\n" +
+            "6. Текст має бути написаний академічною мовою. Текст має підходити для лабораторної роботи\n" +
+            "7. Не показувати сам код.\n" +
+            "8. Зроби це у вигляді звичайного тексту з абзацами (не створюй зайвих булет-листів, тощо).\n";
+    public static final String generateVariablesTable = "У тебе є код на C.\n" +
+            "Тобі потрібно створити таблицю змінних.\n" +
+            "У таблиці повинні бути лише такі стовпці: \n" +
+            "Змінна | Тип | Ім'я | Призначення\n\n" +
+            "Треба:\n" +
+            "1. Для кожної змінної з коду сформуй окремий рядок таблиці.\n" +
+            "2. Не показуй сам код.\n" +
+            "3. Не використовуй елементи форматування, які можуть погано відобразитися у .doc файлі. \n" +
+            "   Дозволені символи для таблиці: вертикальна риска | та пробіли.\n" +
+            "   Заборонені: спеціальні символи, LaTeX та інші нестандартні елементи.\n" +
+            "4. Таблиця повинна бути у такому форматі (приклад):\n" +
+            "| Змінна | Тип | Ім'я | Призначення |\n" +
+            "|------|-----|------|------------|\n" +
+            "| Стовпець1 | Стовпець2 | Стовпець3 | Стовпець4 |\n" +
+            "| Стовпець1 | Стовпець2 | Стовпець3 | Стовпець4 |\n\n" +
+            "5. Текст повинен бути академічним, зрозумілим студенту першого курсу.\n" +
+            "6. Не створюй додаткових заголовків, булетів або нумерацій.\n" +
+            "7. Поверни лише таблицю, без коментарів і без вступних фраз.\n" +
+            "8. Пояснення: Змінна - це те як можна назвати/описати змінну українською, наприклад двовимірний масив. Тип - буквальний тип змінної, що прописан в коді, наприклад double[5][6]. Ім'я - буквальне ім'я змінної що написане в коді. Призначення - написати українською мовою нащо ця змінна потрібна або що вона робіть.";
+
 
     private FlowchartGenAI() {
-        this.client = new Client(); // берёт ключ из GEMINI_API_KEY
-        this.model = "gemini-2.5-flash";
-        this.config = null; // или свой конфиг
+
     }
 
     public static FlowchartGenAI getInstance() {
@@ -29,26 +56,12 @@ public class FlowchartGenAI {
     }
 
     public String generate(String prompt) {
-        GenerateContentResponse response = client.models.generateContent(
-                model,
+        GenerateContentResponse response = CLIENT.models.generateContent(
+                MODEL,
                 prompt,
-                config
+                CONFIG
         );
         return response.text();
     }
 
-    public static void main(String[] args) {
-        // key from GOOGLE_API_KEY
-        Client client = new Client();
-
-        // пример запроса
-        GenerateContentResponse response = client.models.generateContent(
-                model,                // модель
-                "промпт",                                // твой промпт
-                null                                     // можно оставить null
-        );
-
-        // выводим результат
-        System.out.println(response.text());
-    }
 }
