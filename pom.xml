@@ -15,7 +15,7 @@
     </properties>
 
     <dependencies>
-        <!-- Google GenAI SDK для Gemini API -->
+        <!-- Google GenAI SDK for Gemini API -->
         <dependency>
             <groupId>com.google.genai</groupId>
             <artifactId>google-genai</artifactId>

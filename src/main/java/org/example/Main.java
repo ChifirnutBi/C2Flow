@@ -37,6 +37,7 @@
 package org.example;
 
 import java.io.*;
+//import org.apache.poi.xwpf.usermodel.*;
 
 public class Main {
 
@@ -73,6 +74,6 @@ public class Main {
 
         System.out.println(code);
         System.out.println(flowchartGenAI.generate(FlowchartGenAI.generateTaskAndSolution + code));
-        System.out.println(flowchartGenAI.generate(FlowchartGenAI.generateVariablesTable + code));
+        System.out.println(flowchartGenAI.generate(FlowchartGenAI.generateTableOfVariables + code));
     }
 }
