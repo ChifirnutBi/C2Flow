@@ -14,10 +14,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         FlowchartGenAI flowchartGenAI = FlowchartGenAI.getInstance();
 
-        System.out.println("C2Flow 0.0.1\n");
+        System.out.println("C2Flow 0.0.1");
         System.out.println("Enter path to your file: ");
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             src = reader.readLine();

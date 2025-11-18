@@ -6,11 +6,11 @@ import com.google.genai.types.GenerateContentResponse;
 
 public class FlowchartGenAI {
 
+    private static FlowchartGenAI instance;
+
     private static final Client CLIENT = new Client();
     private static final String MODEL = "gemini-2.5-flash";
     private static final GenerateContentConfig CONFIG = null;
-
-    private static FlowchartGenAI instance;
 
     public static final String generateTaskAndSolution = "У тебе є код на C. \n" +
             "Тобі потрібно зробити текст задачі та розв'язку на основі коду мовою C. \n" +
