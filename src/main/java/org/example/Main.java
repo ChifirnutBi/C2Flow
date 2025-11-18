@@ -1,43 +1,7 @@
-/*
-                                             @@@@@@@
-                                           @@@     @@.
-                                          @@        @@.
-                           .*@@@@@*.    @@%          @@
-                     @@@@@@*.     .@@@@@@:           @@-
-                  @@@-                               .@@
-               @@@     @ @.    #% @.                 :@@
-             @@@      @  @@    @  -@                 @@@
-           .@@        @%@@.    @@ @@                 @@@
-         @@@@        @@@@@    +@@@@@                #@@
-     @@@ -@@         @@@@@     @@@@                 @@@
-   @@    @@    @@@@   @@@      @@@@   @@@@         @@@@
- .@@    @@    @@@@@@                 @@@@@@         *@@
- @@    .@@              @@@@@@@.                     @@@
- @@@   @@ *@@@@@.        @    @                      @@@
-  @@@@@@@@@. .@@@@@                                  .@@
-    @@@           @@@                                -@@
-  #@@               @@@                              @@@
- .@@                 @@@                             @@@
- @@:@@@@@@@@@%        @@@                           @@@
- @@@@@@@@@@@@@@@@      @@                          @@@
- @@@@@@@@@@@@@@@@@@.   *@@                        @@@@
-  @@@@@@@@@@@@@@@@@@@   @@                      @@@@@@
-   @@@@@@@@@@@@@@@@@@@. @@=                  .@@@@.=@@@
-    @@@@@@@@@@@@@@@@@@@ @@@@@@@@@.       @@@@@@@    @@@
-      @@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@      @@@
-         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@:        @@
-            .@@@@@@@@@  .@@@@@@@@@@@@@@@.          @@@
-                                  @@@@@            @@
-                                  .@@@@@          @@.
-                                   .@@@@@@       @@.
-                                     @@@@@@@@@@@@@
-                                       .@@@@@@@@                                                                                                                                       ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
- */
-
 package org.example;
 
 import java.io.*;
-//import org.apache.poi.xwpf.usermodel.*;
+import org.apache.poi.xwpf.usermodel.*;
 
 public class Main {
 
@@ -49,6 +13,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
+
 
         FlowchartGenAI flowchartGenAI = FlowchartGenAI.getInstance();
 
@@ -73,6 +38,7 @@ public class Main {
         }
 
         System.out.println(code);
+
         System.out.println(flowchartGenAI.generate(FlowchartGenAI.generateTaskAndSolution + code));
         System.out.println(flowchartGenAI.generate(FlowchartGenAI.generateTableOfVariables + code));
     }
