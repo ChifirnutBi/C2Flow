@@ -21,7 +21,6 @@ public class Main {
             ConfigManager.createNewConfig();
         }
 
-
         System.out.println("C2Flow 0.0.1");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(config.paths.src));
@@ -39,5 +38,9 @@ public class Main {
         System.out.println(code);
         System.out.println(flowchartGenAI.generate(config.genAI.model, config.genAI.generateTaskAndSolution + code, config.genAI.config));
         System.out.println(flowchartGenAI.generate(config.genAI.model, config.genAI.generateTableOfVariables + code, config.genAI.config));
+        System.out.println(flowchartGenAI.generate(config.genAI.model, config.genAI.generateFunctionSignaturesTable + code, config.genAI.config));
+        System.out.println(flowchartGenAI.generate(config.genAI.model, config.genAI.generateMathModel+ code, config.genAI.config));
+        System.out.println(flowchartGenAI.generate(config.genAI.model, config.genAI.generateConclusion + code, config.genAI.config));
+
     }
 }
