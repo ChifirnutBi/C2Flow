@@ -1,6 +1,7 @@
 package org.example;
 
 import com.google.genai.errors.ApiException;
+import com.google.genai.errors.GenAiIOException;
 
 import java.io.IOException;
 
@@ -17,9 +18,9 @@ public class GeminiExceptionHandler implements Thread.UncaughtExceptionHandler {
         if (isRetryable(e)) {
             int attempt = 1;
             while (attempt <= maxRetries) {
-                System.err.println("Exception in " + t.getName() + " " + e.getClass().getName() + ", trying again... " + attempt);
+                System.err.println("Exception in " + t.getName() + " \"" + e.getMessage() + "\", trying again... " + attempt + "/" + maxRetries);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
                     // todo retry
                 } catch (InterruptedException ie) {
                     Thread.currentThread().interrupt();
