@@ -1,5 +1,7 @@
 package org.example.config;
 
+import com.google.genai.types.GenerateContentConfig;
+
 public class Config {
 
     public GenAIConfig genAI = new GenAIConfig();
@@ -19,7 +21,9 @@ public class Config {
 
     public static class GenAIConfig {
         public String model;
-        public String config;
+        public GenerateContentConfig config;
+        public String generateTaskAndSolution;
+        public String generateTableOfVariables;
     }
 
     public static class StudentInfo {
