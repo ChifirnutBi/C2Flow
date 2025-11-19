@@ -3,7 +3,7 @@ package org.example.config;
 public class Config {
 
     public GenAIConfig genAI = new GenAIConfig();
-    public StudentInfo student = new StudentInfo();
+    public StudentInfo studentInfo = new StudentInfo();
     public PathsConfig paths = new PathsConfig();
 
     private static Config instance;
