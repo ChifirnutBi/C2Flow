@@ -24,6 +24,9 @@ public class Config {
         public GenerateContentConfig config;
         public String generateTaskAndSolution;
         public String generateTableOfVariables;
+        public String generateFunctionSignaturesTable;
+        public String generateMathModel;
+        public String generateConclusion;
     }
 
     public static class StudentInfo {

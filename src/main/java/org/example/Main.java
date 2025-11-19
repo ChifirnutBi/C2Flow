@@ -1,8 +1,6 @@
 package org.example;
 
 import java.io.*;
-import java.time.LocalDate;
-import java.util.Scanner;
 
 import org.example.config.Config;
 import org.example.config.ConfigManager;
@@ -20,9 +18,7 @@ public class Main {
             ConfigManager.loadConfig("config/config.json");
         } catch (IOException e) {
             System.out.println("Configuration file not found or corrupted. Trying a new one.");
-
             ConfigManager.createNewConfig();
-
         }
 
 
