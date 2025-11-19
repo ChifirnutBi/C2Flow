@@ -2,29 +2,29 @@ package org.example;
 
 import java.io.*;
 import org.apache.poi.xwpf.usermodel.*;
+import org.example.config.Config;
+import org.example.config.ConfigLoader;
 
 public class Main {
 
-    static String src;
     static String code;
 
-    static {
-        //TODO: code format here
-    }
 
     public static void main(String[] args) {
 
         FlowchartGenAI flowchartGenAI = FlowchartGenAI.getInstance();
+        Config config;
 
-        System.out.println("C2Flow 0.0.1");
-        System.out.println("Enter path to your file: ");
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-            src = reader.readLine();
-        } catch (Exception e) {
+        try {
+            config = ConfigLoader.loadConfig("config/config.json");
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(src));
+
+        System.out.println("C2Flow 0.0.1");
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(config.paths.src));
         StringWriter stringWriter = new StringWriter()) {
             while (reader.ready()) {
                 stringWriter.write(reader.readLine() + "\n");
