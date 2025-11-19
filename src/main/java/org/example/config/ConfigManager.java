@@ -21,7 +21,15 @@ public class ConfigManager {
 
     public static void saveConfig(String filePath) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), Config.getInstance());
+        File file = new File(filePath);
+
+        File parentDir = file.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+
+        mapper.writerWithDefaultPrettyPrinter().writeValue(file, Config.getInstance());
+        System.out.println("Config saved to " + file.getAbsolutePath());
     }
 
     public static void createNewConfig() {
@@ -140,5 +148,11 @@ public class ConfigManager {
         config.paths.docOutputDir = "output/";
         config.paths.templatePath = "template.docx";
         config.paths.tmpDir = "tmp/";
+
+        try {
+            ConfigManager.saveConfig(Config.PathsConfig.CONFIG_FILE_PATH);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -14,14 +14,14 @@ public class Main {
         FlowchartGenAI flowchartGenAI = FlowchartGenAI.getInstance();
         Config config = Config.getInstance();
 
+        System.out.println("C2Flow 0.0.1");
+
         try {
             ConfigManager.loadConfig("config/config.json");
         } catch (IOException e) {
-            System.out.println("Configuration file not found or corrupted. Trying a new one.");
+            System.out.println("Configuration file not found or corrupted. Trying to create a new one.");
             ConfigManager.createNewConfig();
         }
-
-        System.out.println("C2Flow 0.0.1");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(config.paths.src));
         StringWriter stringWriter = new StringWriter()) {
