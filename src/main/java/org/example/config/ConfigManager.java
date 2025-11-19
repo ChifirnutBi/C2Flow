@@ -19,9 +19,9 @@ public class ConfigManager {
         instance.paths = loaded.paths;
     }
 
-    public static void saveConfig(Config config, String filePath) throws IOException {
+    public static void saveConfig(String filePath) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), config);
+        mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), Config.getInstance());
     }
 
     public static void createNewConfig() {
