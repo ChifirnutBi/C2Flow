@@ -21,7 +21,6 @@ public class GeminiExceptionHandler implements Thread.UncaughtExceptionHandler {
                 System.err.println("Exception in " + t.getName() + " \"" + e.getMessage() + "\", trying again... " + attempt + "/" + maxRetries);
                 try {
                     Thread.sleep(2000);
-                    // todo retry
                 } catch (InterruptedException ie) {
                     Thread.currentThread().interrupt();
                     break;
