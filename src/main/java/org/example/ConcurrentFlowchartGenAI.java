@@ -8,19 +8,7 @@ public class ConcurrentFlowchartGenAI {
 
     private static final Client CLIENT = new Client();
 
-    private String response;
-
-    public String getResponse() {
-        return response;
+    public String generate(String model, String prompt, GenerateContentConfig config) {
+        return CLIENT.models.generateContent(model, prompt, config).text();
     }
-
-    public void generate(String model, String prompt, GenerateContentConfig config) {
-        GenerateContentResponse response = CLIENT.models.generateContent(
-                model,
-                prompt,
-                config
-        );
-        this.response = response.text();
-    }
-
 }
