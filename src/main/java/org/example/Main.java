@@ -11,8 +11,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Thread.setDefaultUncaughtExceptionHandler(new GeminiExceptionHandler(150));
-
         FlowchartGenAI flowchartGenAI = FlowchartGenAI.getInstance();
         Config config = Config.getInstance();
 
