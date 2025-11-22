@@ -27,6 +27,7 @@ public class Config {
         public String generateFunctionSignaturesTable;
         public String generateMathModel;
         public String generateConclusion;
+        public int maxAttempts;
     }
 
     public static class StudentInfo {

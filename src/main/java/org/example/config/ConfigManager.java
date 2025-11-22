@@ -115,6 +115,7 @@ public class ConfigManager {
                 "6. Не показувати сам код.\n" +
                 "7. Не створювати списки, заголовки чи форматування, яке може погано відобразитися в .doc файлі.\n" +
                 "8. Повернути лише зв’язний текст без коментарів і службових фраз.\n";
+        config.genAI.maxAttempts = 60;
 
         System.out.println("Enter the title page (multiple lines possible, end with a empty line):");
         Scanner scanner = new Scanner(System.in);
