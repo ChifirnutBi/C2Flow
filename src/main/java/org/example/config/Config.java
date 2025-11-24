@@ -27,7 +27,6 @@ public class Config {
         public String generateFunctionSignaturesTable;
         public String generateMathModel;
         public String generateConclusion;
-        public int maxAttempts;
     }
 
     public static class StudentInfo {
@@ -41,15 +40,12 @@ public class Config {
         public String teacherName;
         public String city;
         public String year;
-
     }
 
     public static class PathsConfig {
         public String src;
         public String docOutputDir;
         public String templatePath;
-        public static final String CONFIG_FILE_PATH = "config/config.json";
         public String tmpDir;
-
     }
 }

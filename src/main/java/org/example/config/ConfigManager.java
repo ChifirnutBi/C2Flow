@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 public class ConfigManager {
 
+    public static final String CONFIG_FILE_PATH = "config/config.json";
+
     public static void loadConfig(String filePath) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         Config loaded = mapper.readValue(new File(filePath), Config.class);
@@ -130,7 +132,6 @@ public class ConfigManager {
                 7. Не створювати списки, заголовки чи форматування, яке може погано відобразитися в .doc файлі.
                 8. Повернути лише зв’язний текст без коментарів і службових фраз.
                 """;
-        config.genAI.maxAttempts = 60;
 
         System.out.println("Enter the title page (multiple lines possible, end with a empty line):");
         Scanner scanner = new Scanner(System.in);
@@ -167,7 +168,7 @@ public class ConfigManager {
         config.paths.tmpDir = "tmp/";
 
         try {
-            ConfigManager.saveConfig(Config.PathsConfig.CONFIG_FILE_PATH);
+            ConfigManager.saveConfig(CONFIG_FILE_PATH);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

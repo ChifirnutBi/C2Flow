@@ -41,7 +41,7 @@ public class Main {
                 ConcurrentFlowchartGenAI cfgAI = new ConcurrentFlowchartGenAI();
                 System.out.println(cfgAI.generateWithRetry(config.genAI.model,
                         config.genAI.generateTaskAndSolution + code,
-                        config.genAI.config, config.genAI.maxAttempts));
+                        config.genAI.config, 60));
             }
         };
         Runnable r2 = new Runnable() {
@@ -50,7 +50,7 @@ public class Main {
                 ConcurrentFlowchartGenAI cfgAI = new ConcurrentFlowchartGenAI();
                 System.out.println(cfgAI.generateWithRetry(config.genAI.model,
                         config.genAI.generateTableOfVariables + code,
-                        config.genAI.config, config.genAI.maxAttempts));
+                        config.genAI.config, 60));
             }
         };
         Runnable r3 = new Runnable() {
@@ -59,7 +59,7 @@ public class Main {
                 ConcurrentFlowchartGenAI cfgAI = new ConcurrentFlowchartGenAI();
                 System.out.println(cfgAI.generateWithRetry(config.genAI.model,
                         config.genAI.generateFunctionSignaturesTable + code,
-                        config.genAI.config, config.genAI.maxAttempts));
+                        config.genAI.config, 60));
             }
         };
         Runnable r4 = new Runnable() {
@@ -68,7 +68,7 @@ public class Main {
                 ConcurrentFlowchartGenAI cfgAI = new ConcurrentFlowchartGenAI();
                 System.out.println(cfgAI.generateWithRetry(config.genAI.model,
                         config.genAI.generateMathModel + code,
-                        config.genAI.config, config.genAI.maxAttempts));
+                        config.genAI.config, 60));
             }
         };
         Runnable r5 = new Runnable() {
@@ -77,7 +77,7 @@ public class Main {
                 ConcurrentFlowchartGenAI cfgAI = new ConcurrentFlowchartGenAI();
                 System.out.println(cfgAI.generateWithRetry(config.genAI.model,
                         config.genAI.generateConclusion + code,
-                        config.genAI.config, config.genAI.maxAttempts));
+                        config.genAI.config, 60));
             }
         };
 
