@@ -39,3 +39,6 @@ build/
 
 # Config files
 config/config.json
+
+# Output folder
+output/

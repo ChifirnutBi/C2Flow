@@ -138,8 +138,10 @@ public class ConfigManager {
         StringBuilder titleBuilder = new StringBuilder();
         while (true) {
             String line = scanner.nextLine();
-            if (line.isEmpty()) break;
-            if (!titleBuilder.isEmpty()) titleBuilder.append("\n");
+            if (line.isEmpty())
+                break;
+            if (!titleBuilder.isEmpty())
+                titleBuilder.append("\n");
             titleBuilder.append(line);
         }
         config.studentInfo.title = titleBuilder.toString();
@@ -164,7 +166,7 @@ public class ConfigManager {
         System.out.println("Enter path to your file with code:");
         config.paths.src = scanner.nextLine();
         config.paths.docOutputDir = "output/";
-        config.paths.templatePath = "template.docx";
+        config.paths.templatePath = "templates/kpiTemplate.docx";
         config.paths.tmpDir = "tmp/";
 
         try {
