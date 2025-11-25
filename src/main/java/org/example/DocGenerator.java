@@ -55,7 +55,6 @@ public class DocGenerator {
                 run.setFontSize(14);
             }
         }
-
     }
     public void save(String outputFileName) {
         try (FileOutputStream out = new FileOutputStream(outputFileName)) {
