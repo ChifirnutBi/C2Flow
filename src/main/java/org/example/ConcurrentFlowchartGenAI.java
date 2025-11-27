@@ -7,10 +7,41 @@ import com.google.genai.types.GenerateContentConfig;
 import com.google.genai.types.GenerateContentResponse;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Optional;
 
 public class ConcurrentFlowchartGenAI {
 
-    private static final Client CLIENT = new Client();
+    private final Client CLIENT;
+
+    public ConcurrentFlowchartGenAI() {
+        this.CLIENT = new Client();
+    }
+
+    public ConcurrentFlowchartGenAI(String apiKey) {
+        try {
+            Constructor<Client> ctor = Client.class.getDeclaredConstructor(
+                    Optional.class, Optional.class, Optional.class, Optional.class,
+                    Optional.class, Optional.class, Optional.class, Optional.class
+            );
+            ctor.setAccessible(true);
+
+            this.CLIENT = ctor.newInstance(
+                    Optional.of(apiKey),
+                    Optional.empty(),
+                    Optional.empty(),
+                    Optional.empty(),
+                    Optional.empty(),
+                    Optional.of(false),
+                    Optional.empty(),
+                    Optional.empty()
+            );
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public String generate(String model, String prompt, GenerateContentConfig config) {
         return CLIENT.models.generateContent(model, prompt, config).text();
