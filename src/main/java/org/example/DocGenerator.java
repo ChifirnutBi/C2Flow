@@ -4,7 +4,6 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.example.config.Config;
-import org.example.config.ConfigManager;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -31,34 +30,63 @@ public class DocGenerator {
             throw new RuntimeException(e);
         }
 
+        HashMap<String, String> placeholders = new HashMap<>();
+
+        placeholders.put("{UNIVERSITY}", config.studentInfo.title);
+        placeholders.put("{LAB_NUMBER}", config.studentInfo.labNumber);
+        placeholders.put("{COURSE}", config.studentInfo.course);
+        placeholders.put("{TOPIC}", config.studentInfo.topic);
+        placeholders.put("{VARIANT}", config.studentInfo.variant);
+        placeholders.put("{GROUP}", config.studentInfo.group);
+        placeholders.put("{STUDENT_NAME}", config.studentInfo.studentName);
+        placeholders.put("{TEACHER_NAME}", config.studentInfo.teacherName);
+        placeholders.put("{CITY}", config.studentInfo.city);
+        placeholders.put("{YEAR}", config.studentInfo.year);
+        placeholders.put("{TOPIC_UPPER_CASE}", config.studentInfo.topic.toUpperCase());
+        placeholders.put("{LAB_GOAL}", config.studentInfo.labGoal);
+
+        List<String> missingPlaceholders = replacePlaceholders(placeholders);
+
+        if (!missingPlaceholders.isEmpty()) {
+            System.out.println("NOT FOUND PLACEHOLDERS:");
+            missingPlaceholders.stream().distinct().forEach(ph -> {
+                System.out.println(" - " + ph);
+            });
+        };
+    }
+
+    public List<String> replacePlaceholders(HashMap<String, String> placeholders) {
+        List<String> missingPlaceholders = new ArrayList<>();
+
         for (XWPFParagraph p : doc.getParagraphs()) {
             String paraText = p.getText();
 
-            String newText = paraText
-                .replace("{UNIVERSITY}", config.studentInfo.title)
-                .replace("{LAB_NUMBER}", config.studentInfo.labNumber)
-                .replace("{COURSE}", config.studentInfo.course)
-                .replace("{TOPIC}", config.studentInfo.topic)
-                .replace("{VARIANT}", config.studentInfo.variant)
-                .replace("{GROUP}", config.studentInfo.group)
-                .replace("{STUDENT_NAME}", config.studentInfo.studentName)
-                .replace("{TEACHER_NAME}", config.studentInfo.teacherName)
-                .replace("{CITY}", config.studentInfo.city)
-                .replace("{YEAR}", config.studentInfo.year)
-                .replace("{TOPIC_UPPER_CASE}", config.studentInfo.topic.toUpperCase()
-                .replace("{LAB_GOAL}", config.studentInfo.labGoal));
+            String newText = paraText;
+            boolean changed = false;
 
-            if (!paraText.equals(newText)) {
+            for (String placeholder : placeholders.keySet()) {
+                if (paraText.contains(placeholder)) {
+                    newText = newText.replace(placeholder, placeholders.get(placeholder));
+                    changed = true;
+                } else {
+                    missingPlaceholders.add(placeholder);
+                }
+            }
+
+            if (changed) {
                 int runCount = p.getRuns().size();
                 for (int i = runCount - 1; i >= 0; i--) {
                     p.removeRun(i);
                 }
+
                 XWPFRun run = p.createRun();
                 run.setText(newText);
                 run.setFontFamily("Times New Roman");
                 run.setFontSize(14);
             }
         }
+
+        return missingPlaceholders;
     }
 
     public void save(String outputFileName) {
@@ -69,42 +97,7 @@ public class DocGenerator {
         }
     }
 
-    public void generateLabFromTemplate(String templateName, HashMap<String, String> map) {
-        List<String> missingPlaceholders = new ArrayList<>();
-
-        for (XWPFParagraph p : doc.getParagraphs()) {
-            String paraText = p.getText();
-
-            String newText = paraText;
-            boolean changed = false;
-
-            for (String placeholder : map.keySet()) {
-                if (paraText.contains(placeholder)) {
-                    newText = newText.replace(placeholder, map.get(placeholder));
-                    changed = true;
-                } else {
-                    missingPlaceholders.add(placeholder);
-                }
-            }
-
-            if (!paraText.equals(newText)) {
-                int runCount = p.getRuns().size();
-                for (int i = runCount - 1; i >= 0; i--) {
-                    p.removeRun(i);
-                }
-
-                XWPFRun run = p.createRun();
-                run.setText(newText);
-                run.setFontFamily("Times New Roman");
-                run.setFontSize(14);
-            }
-        }
-
-        if (!missingPlaceholders.isEmpty()) {
-            System.out.println("NOT FOUND PLACEHOLDERS:");
-            missingPlaceholders.stream().distinct().forEach(ph -> {
-                System.out.println(" - " + ph);
-            });
-        }
+    public void close() throws IOException {
+        doc.close();
     }
 }
