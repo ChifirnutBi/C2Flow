@@ -9,6 +9,9 @@ import org.example.config.ConfigManager;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class DocGenerator {
 
@@ -63,6 +66,45 @@ public class DocGenerator {
             doc.write(out);
         } catch (IOException e) {
             throw new RuntimeException("Cannot save file", e);
+        }
+    }
+
+    public void generateLabFromTemplate(String templateName, HashMap<String, String> map) {
+        List<String> missingPlaceholders = new ArrayList<>();
+
+        for (XWPFParagraph p : doc.getParagraphs()) {
+            String paraText = p.getText();
+
+            String newText = paraText;
+            boolean changed = false;
+
+            for (String placeholder : map.keySet()) {
+                if (paraText.contains(placeholder)) {
+                    newText = newText.replace(placeholder, map.get(placeholder));
+                    changed = true;
+                } else {
+                    missingPlaceholders.add(placeholder);
+                }
+            }
+
+            if (!paraText.equals(newText)) {
+                int runCount = p.getRuns().size();
+                for (int i = runCount - 1; i >= 0; i--) {
+                    p.removeRun(i);
+                }
+
+                XWPFRun run = p.createRun();
+                run.setText(newText);
+                run.setFontFamily("Times New Roman");
+                run.setFontSize(14);
+            }
+        }
+
+        if (!missingPlaceholders.isEmpty()) {
+            System.out.println("NOT FOUND PLACEHOLDERS:");
+            missingPlaceholders.stream().distinct().forEach(ph -> {
+                System.out.println(" - " + ph);
+            });
         }
     }
 }
