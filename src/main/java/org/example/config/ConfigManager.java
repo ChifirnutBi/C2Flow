@@ -175,6 +175,8 @@ public class ConfigManager {
         System.out.println("Enter your city:");
         config.studentInfo.city = scanner.nextLine();
         config.studentInfo.year = String.valueOf(LocalDate.now().getYear());
+        System.out.println("Enter your lab goal:");
+        config.studentInfo.labGoal = scanner.nextLine();
 
         System.out.println("Enter path to your file with code:");
         config.paths.src = scanner.nextLine();

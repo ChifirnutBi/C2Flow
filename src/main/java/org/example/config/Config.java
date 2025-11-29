@@ -41,6 +41,7 @@ public class Config {
         public String teacherName;
         public String city;
         public String year;
+        public String labGoal;
     }
 
     public static class PathsConfig {

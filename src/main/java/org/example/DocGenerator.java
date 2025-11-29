@@ -32,17 +32,18 @@ public class DocGenerator {
             String paraText = p.getText();
 
             String newText = paraText
-                    .replace("{UNIVERSITY}", config.studentInfo.title)
-                    .replace("{LAB_NUMBER}", config.studentInfo.labNumber)
-                    .replace("{COURSE}", config.studentInfo.course)
-                    .replace("{TOPIC}", config.studentInfo.topic)
-                    .replace("{VARIANT}", config.studentInfo.variant)
-                    .replace("{GROUP}", config.studentInfo.group)
-                    .replace("{STUDENT_NAME}", config.studentInfo.studentName)
-                    .replace("{TEACHER_NAME}", config.studentInfo.teacherName)
-                    .replace("{CITY}", config.studentInfo.city)
-                    .replace("{YEAR}", config.studentInfo.year)
-                    .replace("{TOPIC_UPPER_CASE}", config.studentInfo.topic.toUpperCase());
+                .replace("{UNIVERSITY}", config.studentInfo.title)
+                .replace("{LAB_NUMBER}", config.studentInfo.labNumber)
+                .replace("{COURSE}", config.studentInfo.course)
+                .replace("{TOPIC}", config.studentInfo.topic)
+                .replace("{VARIANT}", config.studentInfo.variant)
+                .replace("{GROUP}", config.studentInfo.group)
+                .replace("{STUDENT_NAME}", config.studentInfo.studentName)
+                .replace("{TEACHER_NAME}", config.studentInfo.teacherName)
+                .replace("{CITY}", config.studentInfo.city)
+                .replace("{YEAR}", config.studentInfo.year)
+                .replace("{TOPIC_UPPER_CASE}", config.studentInfo.topic.toUpperCase()
+                .replace("{LAB_GOAL}", config.studentInfo.labGoal));
 
             if (!paraText.equals(newText)) {
                 int runCount = p.getRuns().size();
@@ -56,6 +57,7 @@ public class DocGenerator {
             }
         }
     }
+
     public void save(String outputFileName) {
         try (FileOutputStream out = new FileOutputStream(outputFileName)) {
             doc.write(out);
