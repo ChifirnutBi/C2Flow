@@ -9,9 +9,7 @@ import java.io.Closeable;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class DocGenerator implements Closeable {
 
@@ -46,7 +44,7 @@ public class DocGenerator implements Closeable {
         placeholders.put("{TOPIC_UPPER_CASE}", config.studentInfo.topic.toUpperCase());
         placeholders.put("{LAB_GOAL}", config.studentInfo.labGoal);
 
-        List<String> missingPlaceholders = replacePlaceholders(placeholders);
+        Set<String> missingPlaceholders = replacePlaceholders(placeholders);
 
         if (!missingPlaceholders.isEmpty()) {
             System.out.println("NOT FOUND PLACEHOLDERS:");
@@ -56,36 +54,34 @@ public class DocGenerator implements Closeable {
         };
     }
 
-    public List<String> replacePlaceholders(HashMap<String, String> placeholders) {
-        List<String> missingPlaceholders = new ArrayList<>();
+    public Set<String> replacePlaceholders(HashMap<String, String> placeholders) {
+        Set<String> foundPlaceholders = new HashSet<>();
 
         for (XWPFParagraph p : doc.getParagraphs()) {
             String paraText = p.getText();
-
             String newText = paraText;
             boolean changed = false;
 
-            for (String placeholder : placeholders.keySet()) {
+            for (Map.Entry<String, String> entry : placeholders.entrySet()) {
+                String placeholder = entry.getKey();
                 if (paraText.contains(placeholder)) {
-                    newText = newText.replace(placeholder, placeholders.get(placeholder));
+                    newText = newText.replace(placeholder, entry.getValue());
                     changed = true;
-                } else {
-                    missingPlaceholders.add(placeholder);
+                    foundPlaceholders.add(placeholder);
                 }
             }
 
             if (changed) {
-                int runCount = p.getRuns().size();
-                for (int i = runCount - 1; i >= 0; i--) {
-                    p.removeRun(i);
-                }
-
+                p.getRuns().clear();
                 XWPFRun run = p.createRun();
                 run.setText(newText);
                 run.setFontFamily("Times New Roman");
                 run.setFontSize(14);
             }
         }
+
+        Set<String> missingPlaceholders = new HashSet<>(placeholders.keySet());
+        missingPlaceholders.removeAll(foundPlaceholders);
 
         return missingPlaceholders;
     }
