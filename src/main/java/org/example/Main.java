@@ -11,7 +11,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        FlowchartGenAI flowchartGenAI = FlowchartGenAI.getInstance();
         Config config = Config.getInstance();
 
         System.out.println("C2Flow 0.0.2");
@@ -35,32 +34,23 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        Runnable r1 = new Runnable() {
-            @Override
-            public void run() {
-                ConcurrentFlowchartGenAI cfgAI = new ConcurrentFlowchartGenAI();
-                System.out.println(cfgAI.generateWithRetry(config.genAI.model,
-                        config.genAI.generateTaskAndSolution + code,
-                        config.genAI.config, 60));
-            }
+        Runnable r1 = () -> {
+            ConcurrentFlowchartGenAI cfgAI = new ConcurrentFlowchartGenAI();
+            System.out.println(cfgAI.generateWithRetry(config.genAI.model,
+                    config.genAI.generateTaskAndSolution + code,
+                    config.genAI.config, 60));
         };
-        Runnable r2 = new Runnable() {
-            @Override
-            public void run() {
-                ConcurrentFlowchartGenAI cfgAI = new ConcurrentFlowchartGenAI();
-                System.out.println(cfgAI.generateWithRetry(config.genAI.model,
-                        config.genAI.generateTableOfVariables + code,
-                        config.genAI.config, 60));
-            }
+        Runnable r2 = () -> {
+            ConcurrentFlowchartGenAI cfgAI = new ConcurrentFlowchartGenAI();
+            System.out.println(cfgAI.generateWithRetry(config.genAI.model,
+                    config.genAI.generateTableOfVariables + code,
+                    config.genAI.config, 60));
         };
-        Runnable r3 = new Runnable() {
-            @Override
-            public void run() {
-                ConcurrentFlowchartGenAI cfgAI = new ConcurrentFlowchartGenAI();
-                System.out.println(cfgAI.generateWithRetry(config.genAI.model,
-                        config.genAI.generateFunctionSignaturesTable + code,
-                        config.genAI.config, 60));
-            }
+        Runnable r3 = () -> {
+            ConcurrentFlowchartGenAI cfgAI = new ConcurrentFlowchartGenAI();
+            System.out.println(cfgAI.generateWithRetry(config.genAI.model,
+                    config.genAI.generateFunctionSignaturesTable + code,
+                    config.genAI.config, 60));
         };
         Runnable r4 = new Runnable() {
             @Override
@@ -71,14 +61,11 @@ public class Main {
                         config.genAI.config, 60));
             }
         };
-        Runnable r5 = new Runnable() {
-            @Override
-            public void run() {
-                ConcurrentFlowchartGenAI cfgAI = new ConcurrentFlowchartGenAI();
-                System.out.println(cfgAI.generateWithRetry(config.genAI.model,
-                        config.genAI.generateConclusion + code,
-                        config.genAI.config, 60));
-            }
+        Runnable r5 = () -> {
+            ConcurrentFlowchartGenAI cfgAI = new ConcurrentFlowchartGenAI();
+            System.out.println(cfgAI.generateWithRetry(config.genAI.model,
+                    config.genAI.generateConclusion + code,
+                    config.genAI.config, 60));
         };
 
         Thread thread1 = new Thread(r1);
